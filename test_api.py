@@ -17,14 +17,16 @@ schema = {
 def test_get_users_schema():  
     response = requests.get("https://reqres.in/api/users?page=2")  
     assert jsonschema.validate(response.json(), schema) is None  
-def test_create_user():  
-    payload = {"name": "Alice", "job": "Engineer"}  
-    response = requests.post("https://reqres.in/api/users", json=payload)  
-    assert response.status_code == 201  
-    assert response.json()["id"] is not None    
-def test_create_user_params(name, job):  
-    response = requests.post("https://reqres.in/api/users", json={"name": name, "job": job})  
-    assert response.status_code == 201  
+def test_create_user():
+    payload = {"name": "Alice", "job": "Engineer"}
+    response = requests.post("https://reqres.in/api/users", json=payload)
+    assert response.status_code == 201
+    assert response.json()["id"] is not None
+def test_create_user_params(name, job):
+    payload = {"name": name, "job": job}
+    response = requests.post("https://reqres.in/api/users", json=payload)
+    assert response.status_code == 201
+    assert response.json()["id"] is not None
 def test_invalid_login():  
     response = requests.post("https://reqres.in/api/login", json={"email": "test@test"})  
     assert response.status_code == 400  
